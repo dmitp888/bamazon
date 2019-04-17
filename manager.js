@@ -11,6 +11,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
+
   console.log("connected as id " + connection.threadId);
   menu();
 });
@@ -18,7 +19,7 @@ function readProducts() {
   console.log("Selecting all products...\n");
   connection.query("SELECT * FROM products", function(err, res) {
     console.log("-----------------------------------");
-    console.log("id| product | department | price | quanity");
+    console.log("id| product | department | price | quantity");
     console.log("-----------------------------------");
 
     for (var i = 0; i < res.length; i++) {

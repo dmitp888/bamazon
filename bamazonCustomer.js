@@ -19,7 +19,7 @@ function readProducts() {
   connection.query("SELECT * FROM products", function(err, res) {
     // Log all results of the SELECT statement
     console.log("-----------------------------------");
-    console.log("id| product | department | price | quanity");
+    console.log("id| product | department | price | quantity");
     console.log("-----------------------------------");
 
     for (var i = 0; i < res.length; i++) {
@@ -44,22 +44,22 @@ function order() {
     .prompt([
       {
         type: "input",
-        message: "What' the ID of the product they would like to buy?",
+        message: "What's the ID of the product you would like to buy?",
         name: "ID"
       },
       {
         type: "input",
-        message: " How many units of the product they would like to buy?",
+        message: "How many units of the product you would like to buy?",
         name: "units"
       }
     ])
     .then(function(answer) {
-      console.log(answer.ID);
+      //console.log(answer.ID);
       connection.query(
         "SELECT stock_quantity,price FROM products WHERE ?",
         { ID: answer.ID },
         function(err, res) {
-          if (res[0].stock_quantity != 0) {
+          if (res[0].stock_quantity > 0) {
             var purchase = answer.units * res[0].price;
             var newq = res[0].stock_quantity - answer.units;
             connection.query("UPDATE products  SET ?  WHERE ?", [
@@ -70,9 +70,9 @@ function order() {
                 id: answer.ID
               },
               console.log(
-                "The total cost of your purchase: " +
+                "The total cost of your purchase is: " +
                   purchase +
-                  "$" +
+                  "$." +
                   " Thank you for shopping with us!"
               ),
               connection.end,
@@ -80,10 +80,9 @@ function order() {
             ]);
           } else {
             console.log(
-              "Sorry but current item is currently out of stock! Please come later"
+              "Sorry but this item is currently out of stock! Please come back later!"
             );
             connection.end;
-            order();
           }
         }
       );
