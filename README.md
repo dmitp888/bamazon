@@ -29,4 +29,4 @@ Running manager mode application will:
 
 
 ## Download   'Bamazon-video.mov' file to watch a demo video 
-https://github.com/dmitp888/liri-node-app/blob/master/Liri-video.mov
+https://github.com/dmitp888/bamazon/blob/master/bamazon.mov
